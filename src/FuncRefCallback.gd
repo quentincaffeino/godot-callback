@@ -2,6 +2,11 @@
 extends './AbstractCallback.gd'
 
 
+# @param  FuncRef  target
+func _init(target).(target, Utils.Type.METHOD):
+	pass
+
+
 # Ensure callback target exists
 func ensure():  # boolean
 	return self._target.is_valid()
@@ -15,15 +20,4 @@ func call(argv = []):  # Variant
 		return
 
 	# Execute call
-	if self._type == Utils.Type.VARIABLE:
-		var value = null
-		if argv.size():
-			value = argv[0]
-
-		self._target.set(self._name, value)
-		return self._target.get(self._name)
-
-	elif self._type == Utils.Type.METHOD:
-		return self._target.callv(self._name, argv)
-	
-	print(errors['qc.callback.call.unknown_type'] % [ self._target, self._name ])
+	return self._target.call_funcv(argv)

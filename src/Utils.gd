@@ -21,7 +21,7 @@ static func getType(target, name):  # int
 	if name in target:
 		return Type.VARIABLE
 
-  return Type.UNKNOWN
+	return Type.UNKNOWN
 
 
 # @param  Reference  obj

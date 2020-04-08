@@ -9,7 +9,7 @@ var _name
 # @param  Reference   target
 # @param  string      name
 # @param  Utils.Type  type
-func _init(target, name, type).(target, type):
+func _init(target, name, type = Utils.Type.UNKNOWN).(target, type if type != Utils.Type.UNKNOWN else Utils.getType(target, name)):
 	self._name = name
 
 
@@ -44,11 +44,9 @@ func call(argv = []):  # Variant
 
 	# Execute call
 	if self._type == Utils.Type.VARIABLE:
-		var value = null
 		if argv.size():
-			value = argv[0]
+			self._target.set(self._name, argv[0])
 
-		self._target.set(self._name, value)
 		return self._target.get(self._name)
 
 	elif self._type == Utils.Type.METHOD:

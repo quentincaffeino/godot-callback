@@ -12,7 +12,8 @@ var _target
 var _type
 
 
-# @param  Reference  target
+# @param  Reference   target
+# @param  Utils.Type  type
 func _init(target, type):
 	self._target = target
 	self._type = type
@@ -24,3 +25,13 @@ func getTarget():  # Reference
 
 func getType():  # Utils.Type
 	return self._type
+
+
+# Ensure callback target exists
+func ensure():  # boolean
+	pass
+
+
+# @param  Variant[]  argv
+func call(argv = []):  # Variant
+	pass

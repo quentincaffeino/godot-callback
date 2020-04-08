@@ -25,6 +25,7 @@ func _init(target):
 # @param  string  name
 func setName(name):  # CallbackBuilder
 	self._name = name
+	return self
 
 
 func build():  # Callback|null
@@ -33,15 +34,15 @@ func build():  # Callback|null
 		return null
 
 	if Utils.isFunkRef(self._target):
-		return FuncRefCallback.new(target, Utils.Type.METHOD)
+		return FuncRefCallback.new(self._target)
 
-	if typeof(name) != TYPE_STRING:
-		print(errors['qc.callback.canCreate.second_arg'] % str(typeof(name)))
+	if typeof(self._name) != TYPE_STRING:
+		print(errors['qc.callback.canCreate.second_arg'] % str(typeof(self._name)))
 		return null
 
-	var type = getType(target, name)
+	var type = Utils.getType(self._target, self._name)
 	if type == Utils.Type.UNKNOWN:
-		print(errors['qc.callback.target_missing_mv'] % [ target, name ])
+		print(errors['qc.callback.target_missing_mv'] % [ self._target, self._name ])
 		return null
 
-	return Callback.new(target, name, type)
+	return Callback.new(self._target, self._name)
